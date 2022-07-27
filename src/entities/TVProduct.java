@@ -1,10 +1,10 @@
 package entities;
 
-public class PayTVProduct extends Product {
+public class TVProduct extends Product {
 
     private int qtdeCanais;
 
-    public PayTVProduct(String nome, double mensalidade, int qtdeCanais) {
+    public TVProduct(String nome, double mensalidade, int qtdeCanais) {
         super(nome, mensalidade, "TV");
         this.qtdeCanais = qtdeCanais;
     }

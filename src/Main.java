@@ -8,10 +8,12 @@ public class Main {
 
     static List<Product> products = new ArrayList<>();
     static List<Product> items = new ArrayList<>();
+    static List<Product> cart = new ArrayList<>();
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        int item;
 
         System.out.println("Bem-vindo á Claro!");
 
@@ -19,6 +21,31 @@ public class Main {
         boolean broadband = true;
         boolean paytv = true;
         boolean bundle = true;
+        boolean phone = true;
+
+        // PLANOS MOVEIS
+        do {
+            System.out.print("Nome do Plano Móvel: ");
+            String plano = sc.nextLine();
+
+            System.out.print("Quantia de dados do plano: ");
+            String dados = sc.nextLine();
+
+            System.out.print("Valor da mensalidade: ");
+            double mensalidade = sc.nextDouble();
+
+            products.add(new MobileProduct(plano, mensalidade, dados));
+
+            System.out.println();
+            System.out.print("Deseja adicionar outro? (S/N): ");
+            char option = sc.next().charAt(0);
+            sc.nextLine();
+            System.out.println();
+
+            if(option != 'S'){
+                mobile = false;
+            }
+        } while(mobile);
 
         // PLANOS DE TV
         do {
@@ -32,7 +59,7 @@ public class Main {
             System.out.print("Valor da mensalidade: ");
             double mensalidade = sc.nextDouble();
 
-            products.add(new PayTVProduct(plano, mensalidade, canais));
+            products.add(new TVProduct(plano, mensalidade, canais));
 
             System.out.println();
             System.out.print("Deseja adicionar outro? (S/N): ");
@@ -69,18 +96,19 @@ public class Main {
             }
         } while(broadband);
 
-        // PLANOS MOVEIS
+        // PLANOS DE TELEFONE FIXO
         do {
-            System.out.print("Nome do Plano Móvel: ");
+            System.out.print("Nome do Plano de Fone: ");
             String plano = sc.nextLine();
 
-            System.out.print("Quantia de dados do plano: ");
-            String dados = sc.nextLine();
+            System.out.print("Quantidade de Minutos: ");
+            int minutos = sc.nextInt();
+            sc.nextLine();
 
             System.out.print("Valor da mensalidade: ");
             double mensalidade = sc.nextDouble();
 
-            products.add(new MobileProduct(plano, mensalidade, dados));
+            products.add(new PhoneProduct(plano, mensalidade, minutos));
 
             System.out.println();
             System.out.print("Deseja adicionar outro? (S/N): ");
@@ -89,21 +117,21 @@ public class Main {
             System.out.println();
 
             if(option != 'S'){
-                mobile = false;
+                phone = false;
             }
-        } while(mobile);
+        } while(phone);
 
         do {
             // PLANOS COMBO
             System.out.print("Nome do plano Combo: ");
             String plano = sc.nextLine();
-            int item;
+
 
             ComboProduct combo = new ComboProduct(plano, new ArrayList<Product>());
 
-            System.out.println("Selecione um Plano Móvel: ");
+            System.out.println("Selecione um Plano de TV: ");
             for (Product p : products) {
-                if (p instanceof MobileProduct)
+                if (p instanceof TVProduct)
                     System.out.println(products.indexOf(p) + " - " + p.getNome());
             }
             item = sc.nextInt();
@@ -119,9 +147,18 @@ public class Main {
             combo.addProducts(products.get(item));
             System.out.println();
 
-            System.out.println("Selecione um Plano de TV: ");
+            System.out.println("Selecione um Plano Fixo: ");
             for (Product p : products) {
-                if (p instanceof PayTVProduct)
+                if (p instanceof PhoneProduct)
+                    System.out.println(products.indexOf(p) + " - " + p.getNome());
+            }
+            item = sc.nextInt();
+            combo.addProducts(products.get(item));
+            System.out.println();
+
+            System.out.println("Selecione um Plano Móvel: ");
+            for (Product p : products) {
+                if (p instanceof MobileProduct)
                     System.out.println(products.indexOf(p) + " - " + p.getNome());
             }
             item = sc.nextInt();
@@ -140,9 +177,13 @@ public class Main {
             }
         } while (bundle);
 
-        System.out.println("Produtos cadastrados:");
-        for (Product pro : products)
-            System.out.println(pro);
+        System.out.println("Selecione o Produto que deseja instalar: ");
+        for (Product p : products) {
+            System.out.println(products.indexOf(p) + " - " + p.getNome());
+        }
+        item = sc.nextInt();
+
+        products.get(item).activate();
 
         sc.close();
     }

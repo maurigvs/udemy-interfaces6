@@ -7,4 +7,6 @@ public interface BasicProduct {
     boolean suspend();
 
     boolean deactivate();
+
+    boolean charge();
 }

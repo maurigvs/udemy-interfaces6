@@ -2,7 +2,7 @@ package entities;
 
 import interfaces.BasicProduct;
 
-public class Product implements BasicProduct {
+public abstract class Product implements BasicProduct {
 
     private String nome;
     private double mensalidade;
@@ -58,6 +58,11 @@ public class Product implements BasicProduct {
 
     @Override
     public boolean deactivate() {
+        return false;
+    }
+
+    @Override
+    public boolean charge() {
         return false;
     }
 

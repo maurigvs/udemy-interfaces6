@@ -1,5 +1,4 @@
 package entities;
-
 public class MobileProduct extends Product {
 
     private String franquiaDados;
@@ -19,19 +18,19 @@ public class MobileProduct extends Product {
 
     @Override
     public boolean activate() {
-        System.out.println("Linha de Celular ativada!");
+        System.out.println("Telefone Celular ativado!");
         return false;
     }
 
     @Override
     public boolean suspend() {
-        System.out.println("Linha de Celular suspensa!");
+        System.out.println("Telefone Celular suspenso!");
         return false;
     }
 
     @Override
     public boolean deactivate() {
-        System.out.println("Linha de Celular desligada!");
+        System.out.println("Telefone Celular cancelado!");
         return false;
     }
 
